@@ -8,8 +8,8 @@ all:
 test:
 	python -m pytest
 
-ci:
-	python -m pytest
+lint:
+	pre-commit run --all-files --show-diff-on-failure
 
 coverage:
 	coverage run -m pytest

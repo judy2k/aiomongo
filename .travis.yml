@@ -3,11 +3,13 @@ cache:
   pip: true
   directories:
     - $HOME/.cache/pre-commit
+env:
+  - TEST_CMD="make test"
 install:
   - pip install coveralls pre-commit
   - pip install -e .[tests]
 script:
-  - make test
+  - $TEST_CMD
 after_success:
   - coveralls
 matrix:
@@ -15,7 +17,7 @@ matrix:
     - name: "lint"
       python: 3.7
       env:
-        - TEST_CMD="pre-commit run --all-files --show-diff-on-failure"
+        - TEST_CMD="make lint"
     - name: "3.6"
       python: 3.6
     - name: "3.7"
@@ -23,6 +25,6 @@ matrix:
     - name: "3.8"
       python: 3.8
     - name: "3.9"
-      python: 3.9-dev
-  allow_failures:
-    - python: 3.9-dev
+      python: 3.9
+  # allow_failures:
+  #   - python: 3.9-dev
