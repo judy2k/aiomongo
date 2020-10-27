@@ -1,9 +1,28 @@
 language: python
-python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pre-commit
 install:
+  - pip install coveralls pre-commit
   - pip install -e .[tests]
 script:
   - make test
+after_success:
+  - coveralls
+matrix:
+  include:
+    - name: "lint"
+      python: 3.7
+      env:
+        - TEST_CMD="pre-commit run --all-files --show-diff-on-failure"
+    - name: "3.6"
+      python: 3.6
+    - name: "3.7"
+      python: 3.7
+    - name: "3.8"
+      python: 3.8
+    - name: "3.9"
+      python: 3.9-dev
+  allow_failures:
+    - python: 3.9-dev

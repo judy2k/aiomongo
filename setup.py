@@ -11,6 +11,7 @@ EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["tests"] + [
     "twine",
     "wheel",
     "prospector[with_everything]",
+    "pre-commit",
 ]
 
 setup(
